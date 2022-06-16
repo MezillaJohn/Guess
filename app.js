@@ -26,6 +26,7 @@ function guessButton() {
       score--;
       output.textContent = "Your guess is too low📵";
       start.textContent = "Try again";
+      document.querySelector(".score span").textContent = score;
     } else {
       correctbox.classList.remove("hidden");
       correctbox.style.backgroundColor = "#f87373";
