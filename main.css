@@ -169,6 +169,7 @@ body {
   .container {
     width: 95%;
     min-height: 70rem;
+    overflow: hidden;
   }
 
   .main > :is(.main-text, .clue) {
