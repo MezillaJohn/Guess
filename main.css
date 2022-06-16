@@ -158,8 +158,8 @@ body {
 
 @media only screen and (max-width: 900px) {
   .container {
-    width: 80%;
-    min-height: 80rem;
+    width: 95%;
+    min-height: 70rem;
   }
 
   .main > :is(.main-text, .clue) {
