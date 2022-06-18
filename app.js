@@ -11,6 +11,12 @@ const mainbox = document.querySelector(".mainbox");
 let newname = document.querySelector(".name");
 let score = 5;
 
+playAgain.addEventListener("click", playAgainbtn);
+
+btnGuess.addEventListener("click", guessButton);
+
+times.addEventListener("click", closetimes);
+
 console.log(randomNum);
 function guessButton() {
   let input = Number(document.querySelector(".guess").value);
@@ -26,7 +32,13 @@ function guessButton() {
       score--;
       output.textContent = "Your guess is too low📵";
       start.textContent = "Try again";
-      document.querySelector(".score span").textContent = score;
+      document.querySelector(".score span").innerText = score;
+    } else if (score < 1) {
+      if (input === randomNum) {
+        correctbox.classList.remove("hidden");
+        correctbox.style.backgroundColor = "#68bf54";
+        mainbox.classList.add("hidden");
+      }
     } else {
       correctbox.classList.remove("hidden");
       correctbox.style.backgroundColor = "#f87373";
@@ -40,7 +52,7 @@ function guessButton() {
       score--;
       output.textContent = "Your guess is too high📵";
       start.textContent = "Try again";
-      document.querySelector(".score span").textContent = score;
+      document.querySelector(".score span").innerText = score;
     } else {
       correctbox.classList.remove("hidden");
       correctbox.style.backgroundColor = "#f87373";
@@ -53,29 +65,42 @@ function guessButton() {
   }
 }
 
+function random() {
+  return Math.floor(Math.random() * 21) + 20;
+}
+
 function playAgainbtn() {
+  score = 5;
+
+  randomNum = random();
+  console.log(randomNum);
+
   input = Number((document.querySelector(".guess").value = ""));
   start.textContent = "Start Guessing...";
   output.textContent = "You can do this 🤝";
-  document.querySelector(".score span").textContent = "5";
+  document.querySelector(".score span").innerText = score;
 
-  const names = ["JOYCE", "SANDRA", "SMITH"];
+  const names = ["JOHN", "MICHEAL", "SANDRA", "SMITH"];
   const randomname = Math.floor(Math.random() * names.length);
   newname.innerText = names[randomname];
-  return (randomNum = Math.floor(Math.random() * 2));
 }
 
 function closetimes() {
   correctbox.classList.add("hidden");
   mainbox.classList.remove("hidden");
+  // start.textContent = "Start Guessing...";
+  // output.textContent = "You can do this 🤝";
+  score = 5;
+
+  randomNum = random();
+  console.log(randomNum);
+
+  input = Number((document.querySelector(".guess").value = ""));
   start.textContent = "Start Guessing...";
   output.textContent = "You can do this 🤝";
-  document.querySelector(".score span").textContent = "5";
-  let input = Number((document.querySelector(".guess").value = ""));
+  document.querySelector(".score span").innerText = score;
+
+  const names = ["JOHN", "MICHEAL", "SANDRA", "SMITH"];
+  const randomname = Math.floor(Math.random() * names.length);
+  newname.innerText = names[randomname];
 }
-
-btnGuess.addEventListener("click", guessButton);
-
-playAgain.addEventListener("click", playAgainbtn);
-
-times.addEventListener("click", closetimes);
