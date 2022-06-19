@@ -1,11 +1,13 @@
 const playAgain = document.querySelector(".play-again");
-const times = document.querySelector(".times");
+const closeWrongBox = document.querySelector(".close-wrongbox");
+const closeCorrectBox = document.querySelector(".close-correctbox");
 let container = document.querySelector(".container");
 const clue = document.querySelector(".clue");
 const btnGuess = document.querySelector(".btn-guess");
 const output = document.querySelector(".output");
 const start = document.querySelector(".start");
 const correctbox = document.querySelector(".correctbox");
+const wrongbox = document.querySelector(".wrongbox");
 let randomNum = Math.floor(Math.random() * 21) + 20;
 const mainbox = document.querySelector(".mainbox");
 let newname = document.querySelector(".name");
@@ -15,7 +17,9 @@ playAgain.addEventListener("click", playAgainbtn);
 
 btnGuess.addEventListener("click", guessButton);
 
-times.addEventListener("click", closetimes);
+closeCorrectBox.addEventListener("click", closeCorrectEvent);
+
+closeWrongBox.addEventListener("click", closeWrongEvent);
 
 console.log(randomNum);
 function guessButton() {
@@ -27,26 +31,6 @@ function guessButton() {
     correctbox.classList.remove("hidden");
     correctbox.style.backgroundColor = "#68bf54";
     mainbox.classList.add("hidden");
-  } else if (input < randomNum) {
-    if (score > 1) {
-      score--;
-      output.textContent = "Your guess is too low📵";
-      start.textContent = "Try again";
-      document.querySelector(".score span").innerText = score;
-    } else if (score < 1) {
-      if (input === randomNum) {
-        correctbox.classList.remove("hidden");
-        correctbox.style.backgroundColor = "#68bf54";
-        mainbox.classList.add("hidden");
-      }
-    } else {
-      correctbox.classList.remove("hidden");
-      correctbox.style.backgroundColor = "#f87373";
-      mainbox.classList.add("hidden");
-      document.querySelector(".correct-box h1").textContent =
-        "You Lost the game ❌";
-      document.querySelector(".correct-box h3").textContent = "";
-    }
   } else if (input > randomNum) {
     if (score > 1) {
       score--;
@@ -54,15 +38,50 @@ function guessButton() {
       start.textContent = "Try again";
       document.querySelector(".score span").innerText = score;
     } else {
-      correctbox.classList.remove("hidden");
-      correctbox.style.backgroundColor = "#f87373";
-      document.querySelector(".correct-box h1").textContent =
-        "You Lost the game ❌";
-      document.querySelector(".correct-box h3").textContent = "";
-
+      wrongbox.style.backgroundColor = "#f87373";
       mainbox.classList.add("hidden");
+      wrongbox.classList.remove("hidden");
+    }
+  } else if (input < randomNum) {
+    if (score > 1) {
+      score--;
+      output.textContent = "Your guess is too low📵";
+      start.textContent = "Try again";
+      document.querySelector(".score span").innerText = score;
+    } else {
+      wrongbox.style.backgroundColor = "#f87373";
+      mainbox.classList.add("hidden");
+      wrongbox.classList.remove("hidden");
     }
   }
+  // } else if (input > randomNum) {
+  //   if (score > 1) {
+  //     score--;
+  //     output.textContent = "Your guess is too high📵";
+  //     start.textContent = "Try again";
+  //     document.querySelector(".score span").innerText = score;
+  //   } else {
+  //     correctbox.classList.remove("hidden");
+  //     correctbox.style.backgroundColor = "#f87373";
+  //     document.querySelector(".correct-box h1").textContent =
+  //       "You Lost the game ❌";
+  //     document.querySelector(".correct-box h3").textContent = "";
+  //     mainbox.classList.add("hidden");
+  //   }
+  // } else if (input < randomNum) {
+  //   if (score > 1) {
+  //     score--;
+  //     output.textContent = "Your guess is too low📵";
+  //     start.textContent = "Try again";
+  //     document.querySelector(".score span").innerText = score;
+  //   } else {
+  //     correctbox.classList.remove("hidden");
+  //     correctbox.style.backgroundColor = "#f87373";
+  //     mainbox.classList.add("hidden");
+  //     document.querySelector(".correct-box h1").textContent =
+  //       "You Lost the game ❌";
+  //     document.querySelector(".correct-box h3").textContent = "";
+  //   }
 }
 
 function random() {
@@ -85,12 +104,30 @@ function playAgainbtn() {
   newname.innerText = names[randomname];
 }
 
-function closetimes() {
-  correctbox.classList.add("hidden");
-  mainbox.classList.remove("hidden");
-  // start.textContent = "Start Guessing...";
-  // output.textContent = "You can do this 🤝";
+function closeCorrectEvent() {
   score = 5;
+
+  mainbox.classList.remove("hidden");
+  correctbox.classList.add("hidden");
+
+  randomNum = random();
+  console.log(randomNum);
+
+  input = Number((document.querySelector(".guess").value = ""));
+  start.textContent = "Start Guessing...";
+  output.textContent = "You can do this 🤝";
+  document.querySelector(".score span").innerText = score;
+
+  const names = ["JOHN", "MICHEAL", "SANDRA", "SMITH"];
+  const randomname = Math.floor(Math.random() * names.length);
+  newname.innerText = names[randomname];
+}
+
+function closeWrongEvent() {
+  score = 5;
+
+  mainbox.classList.remove("hidden");
+  wrongbox.classList.add("hidden");
 
   randomNum = random();
   console.log(randomNum);
